@@ -27,7 +27,7 @@ weighted.var.se <- function(x, w, na.rm=FALSE)
 }
 
 #myData <- readRDS("./processed/cleanData.rds")
-myData <- read.csv("./processed/cleanData.csv")
+myData <- read.csv("./BIOL200Data.csv")
 myData$SCI1 <- as.numeric(levels(myData$SCI1))[myData$SCI1]
 
 dataTable <- myData %>%
@@ -54,7 +54,7 @@ textTable <- rbind(textTable,theSummary)
 
 align <- c("c","c","c","c","c","c")
 
-pdf("figs/forest.pdf", width=8.0, height=3.5)
+pdf("./forest.pdf", width=8.0, height=3.5)
 forestplot(textTable, dataTable,
 	   new_page = FALSE,                             # Image on one page
 	   is.summary=c(TRUE,rep(FALSE,12),TRUE),         # Bold for heading and summary lines
