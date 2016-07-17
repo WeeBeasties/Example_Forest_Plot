@@ -19,7 +19,7 @@ weighted.var.se <- function(x, w, na.rm=FALSE)
 	n = length(w)
 	xWbar = weighted.mean(x,w,na.rm=na.rm)
 	wbar = mean(w)
-	out = n/((n-1)*sum(w)^2)*(sum((w*x-wbar*xWbar)^2)-2*xWbar*sum((w-wbar)*(w*x-wbar*xWbar))+xWbar^2*sum((w-wbar)^2))
+	out = sqrt(n/((n-1)*sum(w)^2)*(sum((w*x-wbar*xWbar)^2)-2*xWbar*sum((w-wbar)*(w*x-wbar*xWbar))+xWbar^2*sum((w-wbar)^2)))
 	low = xWbar-(out*1.96)
 	high = xWbar+(out*1.96)
 	myOutput <- c(mean=round(xWbar,2),low=round(low,2),high=round(high,2))
@@ -58,7 +58,7 @@ pdf("./forest.pdf", width=8.0, height=3.5)
 forestplot(textTable, dataTable,
 	   new_page = FALSE,                             # Image on one page
 	   is.summary=c(TRUE,rep(FALSE,12),TRUE),         # Bold for heading and summary lines
-	   boxsize = .2,                                # Set symbol size
+	   boxsize = .3,                                # Set symbol size
 	   xlog=FALSE,                                   # Linear scale
 	   xticks = c(0,1,2,3,4),                        # Ticks at the rubric values
 	   zero = 2.6,                                   # Set threshold value
