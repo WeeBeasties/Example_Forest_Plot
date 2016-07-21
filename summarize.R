@@ -14,6 +14,8 @@ library(forestplot)
 
 weighted.var.se <- function(x, w, na.rm=FALSE)
 	#  Computes the variance of a weighted mean following Cochran 1977 definition
+	#  Code found online at:
+	#  http://stats.stackexchange.com/questions/25895/computing-standard-error-in-weighted-mean-estimation
 {
 	if (na.rm) { w <- w[i <- !is.na(x)]; x <- x[i] }
 	n = length(w)
