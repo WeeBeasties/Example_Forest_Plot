@@ -24,7 +24,7 @@ weighted.var.se <- function(x, w, na.rm=FALSE)
 	out = sqrt(n/((n-1)*sum(w)^2)*(sum((w*x-wbar*xWbar)^2)-2*xWbar*sum((w-wbar)*(w*x-wbar*xWbar))+xWbar^2*sum((w-wbar)^2)))
 	low = xWbar-(out*1.96)
 	high = xWbar+(out*1.96)
-	myOutput <- c(mean=round(xWbar,2),low=round(low,2),high=round(high,2))
+	myOutput <- c(mean=format(round(xWbar,2),nsmall=2),low=format(round(low,2),nsmall=2),high=format(round(high,2),nsmall=2))
 	return(myOutput)
 }
 
@@ -44,7 +44,7 @@ dataTable <- rbind(nullHeadings,dataTable)
 
 textTable <- myData %>%
 	group_by(file) %>%
-	summarize(Semester = Semester[1], Prefix = Prefix[1], Level = Level[1], Outcome = "SCI1", N = length(SCI1), Mean = round(mean(SCI1),2))
+	summarize(Semester = Semester[1], Prefix = Prefix[1], Level = Level[1], Outcome = "SCI1", N = length(SCI1), Mean = format(round(mean(SCI1),digits=2),nsmall=2))
 textTable$file <- NULL
 textTable$Semester <- as.character(textTable$Semester)
 textTable$Prefix <- as.character(textTable$Prefix)
