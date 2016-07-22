@@ -30,7 +30,7 @@ weighted.var.se <- function(x, w, na.rm=FALSE)
 
 #myData <- readRDS("./processed/cleanData.rds")
 myData <- read.csv("./BIOL200Data.csv")
-myData$SCI1 <- as.numeric(levels(myData$SCI1))[myData$SCI1]
+myData$SCI1 <- as.numeric(myData$SCI1)
 
 dataTable <- myData %>%
 	group_by(file) %>%
@@ -53,6 +53,7 @@ headings <- c("Semester","Prefix","Level","Outcome","N","Mean")
 textTable <- rbind(headings,textTable)
 theSummary <- c("Weighted average",NA,NA,NA,NA,myWeighted)
 textTable <- rbind(textTable,theSummary)
+write.csv(textTable, file = "textTable.csv")
 
 align <- c("c","c","c","c","c","c")
 
