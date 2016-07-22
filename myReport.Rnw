@@ -111,27 +111,32 @@
 \section{Methods}
 %\addcontentsline{toc}{section}{Methods} % Adds this section to the table of contents
 
-\subsection{Subsection}
+\subsection{Collection of assessment data}
 \lipsum[1]
+\subsection{De-identification of student data}
+\lipsum[1]
+\subsection{Data analysis}
+\lipsum[1]
+\subsection{Data provenance}
+\paragraph{Location of public website files} \lipsum[1] % Dummy text
+\paragraph{Citation of this work} \lipsum[1] % Dummy text
+
+\section{Results}
 \lipsum[1]
 
+\subsection{Structure of the report files}
+\lipsum[1]
+
+\subsection{Summary statistics}
+\lipsum[1]
+
+\subsection{Meta-analysis}
+\lipsum[1]
 \begin{figure*}[ht]\centering % Using \begin{figure*} makes the figure take up the entire width of the page
 \includegraphics[width=\linewidth]{forest}
-\protect\caption{Meta-Analysis}
+\protect\caption{Meta-Analysis - A forest plot of the average scores for each semester with a weighted mean estimate for the entire period investigated. Error bars indicate the 95\% confidence intervals.}
 \label{fig:forest.pdf}
 \end{figure*}
-
-\lipsum[1] % Dummy text
-
-%\begin{figure*}
-%<<my-label, eval=TRUE, fig.height=3, fig.width=7.5, echo=FALSE, dev='pdf'>>=
-%set.seed(1213)  # for reproducibility
-%x = cumsum(rnorm(100))
-%plot(x, type = 'l')  # Brownian motion
-%@
-%\protect\caption{A simple plot of some Brownian motion.}
-%\end{figure*}
-
 \lipsum[1] % Dummy text
 
 \begin{equation}
@@ -147,16 +152,6 @@
 \item Third item in a list
 \end{enumerate}
 
-\subsection{Subsection}
-%\addcontentsline{toc}{subsection}{Subsection} % Adds this section to the table of contents
-\lipsum[1] % Dummy text
-\paragraph{Paragraph} \lipsum[1] % Dummy text
-\paragraph{Paragraph} \lipsum[1] % Dummy text
-
-\subsection{Subsection}
-%\addcontentsline{toc}{subsection}{Subsection} % Adds this section to the table of contents
-\lipsum[1] % Dummy text
-
 \begin{figure}[ht]\centering
 \includegraphics[width=\linewidth]{results}
 \caption{In-text Picture}
@@ -167,14 +162,10 @@ Reference to Figure \ref{fig:results}.
 
 %------------------------------------------------
 
-\section{Results and Discussion}
+\section{Discussion}
 %\addcontentsline{toc}{section}{Results and Discussion} % Adds this section to the table of contents
 
 \lipsum[1] % Dummy text
-
-\subsection{Subsection}
-%\addcontentsline{toc}{subsection}{Subsection} % Adds this section to the table of contents
-
 
 \lipsum[1] % Dummy text
 
@@ -194,8 +185,6 @@ Richard & Miles & $2$ \\
 \label{tab:label}
 \end{table}
 
-\subsubsection{Subsubsection}
-
 \lipsum[1] % Dummy text
 
 \begin{description}
@@ -204,8 +193,6 @@ Richard & Miles & $2$ \\
 \item[Idea] Text
 \end{description}
 
-\subsubsection{Subsubsection}
-
 \lipsum[1] % Dummy text
 
 \begin{itemize}[noitemsep] % [noitemsep] removes whitespace between the items for a compact look
@@ -213,13 +200,6 @@ Richard & Miles & $2$ \\
 \item Second item in a list
 \item Third item in a list
 \end{itemize}
-
-\subsubsection{Subsubsection}
-
-\lipsum[1] % Dummy text
-
-\subsection{Subsection}
-%\addcontentsline{toc}{subsection}{Subsection} % Adds this section to the table of contents
 
 \lipsum[1] % Dummy text
 

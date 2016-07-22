@@ -67,7 +67,7 @@ forestplot(textTable, dataTable,
 	   zero = 2.6,                                   # Set threshold value
 	   grid = gpar(lty=3, col="#333333", lwd=1.25),  # Make vertical lines gray dots
 	   xlab = "\nMean rubric score ± 95% CI",        # Label x-axis
-	   title = "Performance on Scientific Understanding Outcome #1 Based Upon Lecture Exam 1",
+	   #title = "Performance on Scientific Understanding Outcome #1 Based Upon Lecture Exam 1",
 	   align = align,                                # Center all text columns in table
 	   colgap = unit(4, 'mm'),                       # Tighten up the columns
 	   graphwidth = unit(80, 'mm'),                  # Make the plot 80mm wide
