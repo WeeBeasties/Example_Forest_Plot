@@ -22,31 +22,31 @@
 %----------------------------------------------------------------------------------------
 
 \documentclass[fleqn,10pt]{SelfArx} % Document font size and equations flushed left
-\usepackage[english]{babel} % Specify a different language here - english by default
-\usepackage{lipsum} % Required to insert dummy text. To be removed otherwise
-\usepackage{fancyhdr} % Required to put the logo on the top of the first page
+\usepackage[english]{babel}         % Specify a different language here - english by default
+\usepackage{lipsum}                 % Required to insert dummy text. To be removed otherwise
+\usepackage{fancyhdr}               % Required to put the logo on the top of the first page
 \usepackage[style=authoryear,doi=false,isbn=false,url=false,natbib=true,backend=biber]{biblatex}
-\bibliography{sample} % Point to the bibtex bibliography file
+\bibliography{sample}               % Point to the bibtex bibliography file
 
 %----------------------------------------------------------------------------------------
 %	COLUMNS
 %----------------------------------------------------------------------------------------
 
-\setlength{\columnsep}{0.55cm} % Distance between the two columns of text
-\setlength{\fboxrule}{0.75pt} % Width of the border around the abstract
+\setlength{\columnsep}{0.55cm}      % Distance between the two columns of text
+\setlength{\fboxrule}{0.75pt}       % Width of the border around the abstract
 
 %----------------------------------------------------------------------------------------
 %	COLORS
 %----------------------------------------------------------------------------------------
 
-\definecolor{color1}{RGB}{0,0,0} % Color of the article title and sections
+\definecolor{color1}{RGB}{0,0,0}    % Color of the article title and sections
 \definecolor{color2}{RGB}{40,40,40} % Color of the boxes behind the abstract and headings
 
 %----------------------------------------------------------------------------------------
 %	HYPERLINKS
 %----------------------------------------------------------------------------------------
 
-\usepackage{hyperref} % Required for hyperlinks
+\usepackage{hyperref}               % Required for hyperlinks
 \hypersetup{hidelinks,colorlinks,breaklinks=true,urlcolor=color2,citecolor=color1,linkcolor=color1,bookmarksopen=false,pdftitle={Title},pdfauthor={Author}}
 
 %----------------------------------------------------------------------------------------
@@ -58,8 +58,8 @@
 %	ARTICLE INFORMATION
 %----------------------------------------------------------------------------------------
 
-\JournalInfo{General Education Assessment Report} % Journal information
-\Archive{July 2016} % Additional notes (e.g. copyright, DOI, review/research article)
+\JournalInfo{General Education Assessment}     % Report information
+\Archive{Report 16(1) --- July 2016}           % Report identifier and date)
 
 \PaperTitle{Meta-Analysis of Student Achievement on Natural Science FLO SCI1 in a 200-Level Biology Course} % Article title
 
@@ -89,8 +89,8 @@
 \fancypagestyle{firststyle}
 {
 	\fancyhf{}
-	%\fancyhead[L]{\includegraphics[height=0.55cm]{logo.png}}
-	\fancyhead[L]{\includegraphics[height=19.25pt]{logo.png}}
+	\fancyhead[L]{\includegraphics[height=0.55cm]{logo.png}}
+	%\fancyhead[L]{\includegraphics[height=19.25pt]{logo.png}}
 }
 \thispagestyle{firststyle}
 
@@ -100,6 +100,24 @@
 
 \section{Introduction} % The \section*{} command stops section numbering
 %\addcontentsline{toc}{section}{Introduction} % Adds this section to the table of contents
+
+<<packages, echo=FALSE, message=FALSE, warning=FALSE>>=
+# Install and load the packages needed by R for this report
+packages<-function(x){
+        x<-as.character(match.call()[[2]])
+        if (!require(x,character.only=TRUE)){
+                install.packages(pkgs=x,repos="http://cran.r-project.org")
+                require(x,character.only=TRUE)
+        }
+}
+packages(dplyr)         # handling tidy data neatly
+packages(xtable)        # make nice tables of data
+packages(ggplot2)       # make pretty pictures
+packages(forestplot)    # present meta-analysis
+packages(moments)       # calculate skew, kurtosis, etc.
+packages(weights)       # calculate weighted t-test
+@
+
 
 \lipsum[1] % Dummy text
  and some mathematics $\cos\pi=-1$ and $\alpha$ in the text\footnote{And some mathematics $\cos\pi=-1$ and $\alpha$ in the footnote.}.
@@ -128,7 +146,7 @@
 \subsection{Summary statistics}
 
 \begin{figure}[h]\centering
-<<histogram, fig=TRUE, echo=FALSE, message=FALSE>>=
+<<histogram, echo=FALSE, message=FALSE>>=
 myData <- read.csv("BIOL200Data.csv", row.names = NULL, stringsAsFactors = FALSE)
 distribution <- table(myData$SCI1)
 barplot(distribution, ylim=c(0,500), las=1, xlab="Rubric Score on SCI1", ylab="Overall Frequency", axis.lty = 1, col="maroon")
@@ -136,9 +154,17 @@ barplot(distribution, ylim=c(0,500), las=1, xlab="Rubric Score on SCI1", ylab="O
 \protect\caption{A histogram of the distribution of individual rubric score frequencies over all twelve semesters.}
 \label{fig:histogram}
 \end{figure}
+The overall overall average rubric score for all twelve semesters was \Sexpr{round(mean(myData$SCI1),2)}. The distribution of the rubrics scores is shown below.
+\begin{center}
+<<echo=FALSE, results='asis'>>=
+library(xtable)
+print(xtable(table(myData$SCI1),
+caption="Distribution of rubric scores for SCI1",
+label="tab:distribution"))
+@
+\end{center}
 
 \lipsum[1]
-
 \subsection{Meta-analysis}
 \begin{figure*}[ht]\centering % Using \begin{figure*} makes the figure take up the entire width of the page
 \includegraphics[width=\linewidth]{forest}
