@@ -5,3 +5,4 @@
 sanitize.R
 data/*.xlsx
 *.Rproj
+.Rproj.user

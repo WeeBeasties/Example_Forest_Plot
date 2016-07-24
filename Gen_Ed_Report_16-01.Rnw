@@ -116,6 +116,7 @@ packages(ggplot2)       # make pretty pictures
 packages(forestplot)    # present meta-analysis
 packages(moments)       # calculate skew, kurtosis, etc.
 packages(weights)       # calculate weighted t-test
+packages(papeR)		# making LaTeX from some outputs
 @
 
 
@@ -136,6 +137,12 @@ packages(weights)       # calculate weighted t-test
 \subsection{Data provenance}
 \paragraph{Location of public website files} \lipsum[1] % Dummy text
 \paragraph{Citation of this work} \lipsum[1] % Dummy text
+\paragraph{Session information}
+<<Session, echo=FALSE, message=FALSE, comment=NA, results='asis'>>=
+session <- toLatex(sessionInfo(), citations=FALSE)
+session
+#toLatex(session)
+@
 
 \section{Results}
 \lipsum[1]
