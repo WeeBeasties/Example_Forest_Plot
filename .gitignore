@@ -4,4 +4,4 @@
 .Ruserdata
 sanitize.R
 data/*.xlsx
-Example_Forest_Plot.Rproj
+*.Rproj
