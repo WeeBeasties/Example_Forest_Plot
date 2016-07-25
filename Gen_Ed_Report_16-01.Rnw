@@ -156,11 +156,14 @@ session
 \subsection{Summary statistics}
 
 \begin{figure}[h]\centering
-<<histogram, echo=FALSE, message=FALSE>>=
+<<histogram, echo=FALSE, message=FALSE, results='hide'>>=
 myData <- read.csv("BIOL200Data.csv", row.names = NULL, stringsAsFactors = FALSE)
 distribution <- table(myData$SCI1)
+pdf("./figure/histogram.pdf", width=3.5, height=4.5)
 barplot(distribution, ylim=c(0,500), las=1, xlab="Rubric Score on SCI1", ylab="Overall Frequency", axis.lty = 1, col="firebrick")
+dev.off()
 @
+\includegraphics[width=\columnwidth]{./figure/histogram}
 \protect\caption{A histogram of the distribution of individual rubric score frequencies over all twelve semesters.}
 \label{fig:histogram}
 \end{figure}
