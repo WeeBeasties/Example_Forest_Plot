@@ -25,6 +25,8 @@
 \usepackage[english]{babel}         % Specify a different language here - english by default
 \usepackage{lipsum}                 % Required to insert dummy text. To be removed otherwise
 \usepackage{fancyhdr}               % Required to put the logo on the top of the first page
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0mm}
 \usepackage[style=authoryear,doi=false,isbn=false,url=false,natbib=true,backend=biber]{biblatex}
 \bibliography{references}           % Point to the bibtex bibliography file
 
@@ -139,12 +141,12 @@ packages(forestplot)    # present meta-analysis
 \paragraph{Location of public website files} \lipsum[1] % Dummy text
 \paragraph{Citation of this work} \lipsum[1] % Dummy text
 \paragraph{Session information}
+The following information pertains to the session used to generate this report.
 <<Session, echo=FALSE, message=FALSE, comment=NA, results='asis'>>=
 session <- toLatex(sessionInfo(), citations=FALSE)
 session
 #toLatex(session)
 @
-
 \section{Results}
 \lipsum[1]
 
