@@ -40,7 +40,8 @@
 %----------------------------------------------------------------------------------------
 
 \definecolor{color1}{RGB}{0,0,0}    % Color of the article title and sections
-\definecolor{color2}{RGB}{40,40,40} % Color of the boxes behind the abstract and headings
+\definecolor{color2}{RGB}{250,128,114} % Color of the boxes behind the abstract and headings
+%\definecolor{color2}{RGB}{178,34,34} % Color of the boxes behind the abstract and headings
 
 %----------------------------------------------------------------------------------------
 %	HYPERLINKS
@@ -89,7 +90,7 @@
 \fancypagestyle{firststyle}
 {
 	\fancyhf{}
-	\fancyhead[L]{\includegraphics[height=0.55cm]{logo.png}}
+	\fancyhead[L]{\includegraphics[height=0.55cm]{./figure/logo.png}}
 	%\fancyhead[L]{\includegraphics[height=19.25pt]{logo.png}}
 }
 \thispagestyle{firststyle}
@@ -110,13 +111,13 @@ packages<-function(x){
                 require(x,character.only=TRUE)
         }
 }
-packages(dplyr)         # handling tidy data neatly
-packages(xtable)        # make nice tables of data
-packages(ggplot2)       # make pretty pictures
-packages(forestplot)    # present meta-analysis
 packages(moments)       # calculate skew, kurtosis, etc.
 packages(weights)       # calculate weighted t-test
 packages(papeR)		# making LaTeX from some outputs
+packages(xtable)        # make nice tables of data
+packages(dplyr)         # handling tidy data neatly
+packages(ggplot2)       # make pretty pictures
+packages(forestplot)    # present meta-analysis
 @
 
 
@@ -156,7 +157,7 @@ session
 <<histogram, echo=FALSE, message=FALSE>>=
 myData <- read.csv("BIOL200Data.csv", row.names = NULL, stringsAsFactors = FALSE)
 distribution <- table(myData$SCI1)
-barplot(distribution, ylim=c(0,500), las=1, xlab="Rubric Score on SCI1", ylab="Overall Frequency", axis.lty = 1, col="maroon")
+barplot(distribution, ylim=c(0,500), las=1, xlab="Rubric Score on SCI1", ylab="Overall Frequency", axis.lty = 1, col="firebrick")
 @
 \protect\caption{A histogram of the distribution of individual rubric score frequencies over all twelve semesters.}
 \label{fig:histogram}
@@ -165,16 +166,83 @@ The overall overall average rubric score for all twelve semesters was \Sexpr{rou
 \begin{center}
 <<echo=FALSE, results='asis'>>=
 library(xtable)
-print(xtable(table(myData$SCI1),
+tempTable <- (xtable(table(myData$SCI1),
 caption="Distribution of rubric scores for SCI1",
 label="tab:distribution"))
+print(tempTable, caption.placement="top")
 @
 \end{center}
 
 \lipsum[1]
 \subsection{Meta-analysis}
 \begin{figure*}[ht]\centering % Using \begin{figure*} makes the figure take up the entire width of the page
-\includegraphics[width=\linewidth]{forest}
+<<forest, echo=FALSE, message=FALSE, warning=FALSE, results='hide'>>=
+weighted.var.se <- function(x, w, na.rm=FALSE)
+	#  Computes the variance of a weighted mean following Cochran 1977 definition
+	#  Code found online at:
+	#  http://stats.stackexchange.com/questions/25895/computing-standard-error-in-weighted-mean-estimation
+{
+	if (na.rm) { w <- w[i <- !is.na(x)]; x <- x[i] }
+	n = length(w)
+	xWbar = weighted.mean(x,w,na.rm=na.rm)
+	wbar = mean(w)
+	out = sqrt(n/((n-1)*sum(w)^2)*(sum((w*x-wbar*xWbar)^2)-2*xWbar*sum((w-wbar)*(w*x-wbar*xWbar))+xWbar^2*sum((w-wbar)^2)))
+	low = xWbar-(out*1.96)
+	high = xWbar+(out*1.96)
+	myOutput <- c(mean=format(round(xWbar,2),nsmall=2),low=format(round(low,2),nsmall=2),high=format(round(high,2),nsmall=2))
+	return(myOutput)
+}
+
+#myData <- readRDS("./processed/cleanData.rds")
+myData <- read.csv("./BIOL200Data.csv")
+myData$SCI1 <- as.numeric(myData$SCI1)
+
+dataTable <- myData %>%
+	group_by(file) %>%
+	summarise(n = length(SCI1), mean = mean(SCI1), lower = mean(SCI1)-(1.96*sd(SCI1)/sqrt(length(SCI1))), upper = mean(SCI1)+(1.96*sd(SCI1)/sqrt(length(SCI1))))
+dataTable$file <- NULL
+myWeighted <- weighted.var.se(dataTable$mean,dataTable$n)
+dataTable$n <- NULL
+dataTable <- rbind(dataTable,myWeighted)
+nullHeadings <- c(NA,NA,NA)
+dataTable <- rbind(nullHeadings,dataTable)
+
+textTable <- myData %>%
+	group_by(file) %>%
+	summarize(Semester = Semester[1], Prefix = Prefix[1], Level = Level[1], Outcome = "SCI1", N = length(SCI1), Mean = format(round(mean(SCI1),digits=2),nsmall=2))
+textTable$file <- NULL
+textTable$Semester <- as.character(textTable$Semester)
+textTable$Prefix <- as.character(textTable$Prefix)
+textTable$Level <- as.character(textTable$Level)
+headings <- c("Semester","Prefix","Level","Outcome","N","Mean")
+textTable <- rbind(headings,textTable)
+theSummary <- c("Weighted average",NA,NA,NA,NA,myWeighted)
+textTable <- rbind(textTable,theSummary)
+write.csv(textTable, file = "textTable.csv")
+
+align <- c("c","c","c","c","c","c")
+
+pdf("./figure/forest.pdf", width=8.0, height=4.0)
+forestplot(textTable, dataTable,
+	   new_page = FALSE,                             # Image on one page
+	   is.summary=c(TRUE,rep(FALSE,12),TRUE),         # Bold for heading and summary lines
+	   boxsize = .3,                                # Set symbol size
+	   xlog=FALSE,                                   # Linear scale
+	   xticks = c(0,1,2,3,4),                        # Ticks at the rubric values
+	   zero = 2.6,                                   # Set threshold value
+	   grid = gpar(lty=3, col="#333333", lwd=1.25),  # Make vertical lines gray dots
+	   xlab = "\nMean rubric score ± 95% CI",        # Label x-axis
+	   #title = "Performance on Scientific Understanding Outcome #1 Based Upon Lecture Exam 1",
+	   align = align,                                # Center all text columns in table
+	   colgap = unit(4, 'mm'),                       # Tighten up the columns
+	   graphwidth = unit(120, 'mm'),                  # Make the plot 80mm wide
+	   graph.pos=ncol(textTable),                    # Move average values after the plot
+	   hrzl_lines = TRUE,                            # Add horizontal lines
+	   txt_gp = fpTxtGp(label=gpar(cex=.5), xlab = gpar(cex=0.5), ticks = gpar(cex=0.5)),
+	   col=fpColors(box="firebrick",line="black", summary="firebrick", zero="gray50"))
+dev.off()
+@
+\includegraphics[width=\textwidth]{./figure/forest}
 \protect\caption{A forest plot of the average scores for each semester with a weighted mean estimate for the entire period investigated. Error bars indicate the 95\% confidence intervals.}
 \label{fig:forest.pdf}
 \end{figure*}

@@ -43,16 +43,16 @@
 \RequirePackage{booktabs}
 
 %----------------------------------------------------------------------
-%	MARGINS	
+%	MARGINS
 %----------------------------------------------------------------------
-	  	  
+
 \RequirePackage[left=2cm,%
 right=2cm,%
 top=2.25cm,%
 bottom=2.25cm,%
 headheight=11pt,%
 letterpaper]{geometry}%
-				
+
 %----------------------------------------------------------------------
 %	FIGURES AND TABLES CAPTIONS
 %----------------------------------------------------------------------
@@ -62,7 +62,7 @@ labelsep=period,%
 justification=raggedright]{caption}
 \setlength{\abovecaptionskip}{0pt}
 \setlength{\belowcaptionskip}{0pt}
-				
+
 %----------------------------------------------------------------------
 %	PAGE HEADER
 %----------------------------------------------------------------------
@@ -71,7 +71,7 @@ justification=raggedright]{caption}
 \RequirePackage{lastpage}  % Number of pages in the document
 \pagestyle{fancy}          % Enables the custom headers/footers
 % Headers
-\lhead{\includegraphics[height=0.55cm]{logo.png}}%
+\lhead{\includegraphics[height=0.55cm]{./figure/logo.png}}%
 \chead{}%
 \rhead{\small\sffamily\bfseries \thepage/\pageref{LastPage}}
 % Footers
@@ -90,14 +90,14 @@ justification=raggedright]{caption}
   {\color{color1}\large\sffamily\bfseries}
   {}
   {0em}
-  {\colorbox{color2!10}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\centering\arabic{section}. #1}}}
+  {\colorbox{color2!60}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\centering\arabic{section}. #1}}}
   []
 \titleformat{name=\section,numberless}
   {\color{color1}\large\sffamily\bfseries}
   {}
   {0em}
-  {\colorbox{color2!10}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\centering#1}}}
-  []  
+  {\colorbox{color2!60}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\centering#1}}}
+  []
 \titleformat{\subsection}
   {\color{color1}\sffamily\bfseries}
   {\thesubsection}
@@ -109,12 +109,12 @@ justification=raggedright]{caption}
   {\thesubsubsection}
   {0.5em}
   {#1}
-  []    
+  []
 \titleformat{\paragraph}[runin]
   {\sffamily\small\bfseries}
   {}
   {0em}
-  {#1} 
+  {#1}
 \titlespacing*{\section}{0pc}{3ex \@plus4pt \@minus3pt}{5pt}
 \titlespacing*{\subsection}{0pc}{2.5ex \@plus3pt \@minus2pt}{0pt}
 \titlespacing*{\subsubsection}{0pc}{2ex \@plus2.5pt \@minus1.5pt}{0pt}
@@ -123,7 +123,7 @@ justification=raggedright]{caption}
 %----------------------------------------------------------------------
 %	TABLEOFCONTENTS SET-UP
 %----------------------------------------------------------------------
-\newlength{\tocsep} 
+\newlength{\tocsep}
 \setlength\tocsep{0pc} % Sets the indentation of the sections in the table of contents
 \setcounter{tocdepth}{2} % Two levels in the table of contents section: sections, subsections
 
@@ -146,8 +146,8 @@ justification=raggedright]{caption}
 
 %----------------------------------------------------------------------
 %	MULTIPLE AUTHOR SET
-%----------------------------------------------------------------------  
-  
+%----------------------------------------------------------------------
+
 \newcount\@authcnt
 \newcount\@tmpcnt\@tmpcnt\z@
 
@@ -160,7 +160,7 @@ justification=raggedright]{caption}
    \let\next\relax
   \fi
 \next}
-	 
+
 \newcommand{\affiliation}[1]{%
     \global\advance\@authcnt1
     \expandafter\gdef\csname @auth\romannumeral\the\@authcnt\endcsname
@@ -168,14 +168,14 @@ justification=raggedright]{caption}
 
 %----------------------------------------------------------------------
 %	LIST CONTROL
-%----------------------------------------------------------------------  
+%----------------------------------------------------------------------
 
 \RequirePackage{enumitem}
 %\setlist{nolistsep} % Uncomment to remove spacing between items in lists (enumerate, itemize)
 
 %----------------------------------------------------------------------
 %	ABSTRACT+AUTHOR FRAME
-%----------------------------------------------------------------------  
+%----------------------------------------------------------------------
 
 \newcommand{\PaperTitle}[1]{\def\@PaperTitle{#1}}
 \newcommand{\Archive}[1]{\def\@Archive{#1}}
@@ -221,7 +221,7 @@ justification=raggedright]{caption}
 
 %----------------------------------------------------------------------
 %	REFERENCES
-%----------------------------------------------------------------------  
+%----------------------------------------------------------------------
 
 % Remove brackets from numbering in List of References
 \renewcommand{\@biblabel}[1]{\bfseries\color{color1}\textsuperscript{[#1]}}

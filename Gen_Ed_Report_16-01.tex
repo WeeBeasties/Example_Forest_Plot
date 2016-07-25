@@ -89,7 +89,8 @@
 %----------------------------------------------------------------------------------------
 
 \definecolor{color1}{RGB}{0,0,0}    % Color of the article title and sections
-\definecolor{color2}{RGB}{40,40,40} % Color of the boxes behind the abstract and headings
+\definecolor{color2}{RGB}{250,128,114} % Color of the boxes behind the abstract and headings
+%\definecolor{color2}{RGB}{178,34,34} % Color of the boxes behind the abstract and headings
 
 %----------------------------------------------------------------------------------------
 %	HYPERLINKS
@@ -138,7 +139,7 @@
 \fancypagestyle{firststyle}
 {
 	\fancyhf{}
-	\fancyhead[L]{\includegraphics[height=0.55cm]{logo.png}}
+	\fancyhead[L]{\includegraphics[height=0.55cm]{./figure/logo.png}}
 	%\fancyhead[L]{\includegraphics[height=19.25pt]{logo.png}}
 }
 \thispagestyle{firststyle}
@@ -188,7 +189,7 @@
 \item mice (vers. 2.25) 
 \item moments (vers. 0.14) 
 \item papeR (vers. 1.0-1) 
-\item Rcpp (vers. 0.12.5) 
+\item Rcpp (vers. 0.12.6) 
 \item survival (vers. 2.39-5) 
 \item weights (vers. 0.85) 
 \item xtable (vers. 1.8-2) 
@@ -216,9 +217,11 @@
 The overall overall average rubric score for all twelve semesters was 2.54. The distribution of the rubrics scores is shown below.
 \begin{center}
 % latex table generated in R 3.3.0 by xtable 1.8-2 package
-% Sun Jul 24 13:16:21 2016
+% Sun Jul 24 22:07:18 2016
 \begin{table}[ht]
 \centering
+\caption{Distribution of rubric scores for SCI1} 
+\label{tab:distribution}
 \begin{tabular}{rr}
   \hline
  & V1 \\ 
@@ -230,8 +233,6 @@ The overall overall average rubric score for all twelve semesters was 2.54. The 
   4 & 178 \\ 
    \hline
 \end{tabular}
-\caption{Distribution of rubric scores for SCI1} 
-\label{tab:distribution}
 \end{table}
 
 \end{center}
@@ -239,7 +240,8 @@ The overall overall average rubric score for all twelve semesters was 2.54. The 
 \lipsum[1]
 \subsection{Meta-analysis}
 \begin{figure*}[ht]\centering % Using \begin{figure*} makes the figure take up the entire width of the page
-\includegraphics[width=\linewidth]{forest}
+
+\includegraphics[width=\textwidth]{./figure/forest}
 \protect\caption{A forest plot of the average scores for each semester with a weighted mean estimate for the entire period investigated. Error bars indicate the 95\% confidence intervals.}
 \label{fig:forest.pdf}
 \end{figure*}
