@@ -207,9 +207,9 @@ myData <- read.csv("./BIOL200Data.csv")
 myData$SCI1 <- as.numeric(myData$SCI1)
 
 dataTable <- myData %>%
-	group_by(file) %>%
+	group_by(Order) %>%
 	summarise(n = length(SCI1), mean = mean(SCI1), lower = mean(SCI1)-(1.96*sd(SCI1)/sqrt(length(SCI1))), upper = mean(SCI1)+(1.96*sd(SCI1)/sqrt(length(SCI1))))
-dataTable$file <- NULL
+dataTable$Order <- NULL
 myWeighted <- weighted.var.se(dataTable$mean,dataTable$n)
 dataTable$n <- NULL
 dataTable <- rbind(dataTable,myWeighted)
@@ -217,9 +217,9 @@ nullHeadings <- c(NA,NA,NA)
 dataTable <- rbind(nullHeadings,dataTable)
 
 textTable <- myData %>%
-	group_by(file) %>%
+	group_by(Order) %>%
 	summarize(Semester = Semester[1], Prefix = Prefix[1], Level = Level[1], Outcome = "SCI1", N = length(SCI1), Mean = format(round(mean(SCI1),digits=2),nsmall=2))
-textTable$file <- NULL
+textTable$Order <- NULL
 textTable$Semester <- as.character(textTable$Semester)
 textTable$Prefix <- as.character(textTable$Prefix)
 textTable$Level <- as.character(textTable$Level)
@@ -244,10 +244,10 @@ forestplot(textTable, dataTable,
 	   #title = "Performance on Scientific Understanding Outcome #1 Based Upon Lecture Exam 1",
 	   align = align,                                # Center all text columns in table
 	   colgap = unit(4, 'mm'),                       # Tighten up the columns
-	   graphwidth = unit(120, 'mm'),                  # Make the plot 80mm wide
+	   graphwidth = unit(90, 'mm'),                  # Make the plot 80mm wide
 	   graph.pos=ncol(textTable),                    # Move average values after the plot
 	   hrzl_lines = TRUE,                            # Add horizontal lines
-	   txt_gp = fpTxtGp(label=gpar(cex=.5), xlab = gpar(cex=0.5), ticks = gpar(cex=0.5)),
+	   txt_gp = fpTxtGp(label=gpar(cex=.75), xlab = gpar(cex=0.75), ticks = gpar(cex=0.75)),
 	   col=fpColors(box="firebrick",line="black", summary="firebrick", zero="gray50"))
 dev.off()
 @
