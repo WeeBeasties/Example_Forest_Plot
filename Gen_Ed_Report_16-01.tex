@@ -74,6 +74,7 @@
 \usepackage[english]{babel}         % Specify a different language here - english by default
 \usepackage{lipsum}                 % Required to insert dummy text. To be removed otherwise
 \usepackage{fancyhdr}               % Required to put the logo on the top of the first page
+\usepackage{float}
 \usepackage{enumitem}
 \setlist[itemize]{itemsep=0mm}
 \usepackage[style=authoryear,doi=false,isbn=false,url=false,natbib=true,backend=biber]{biblatex}
@@ -91,7 +92,8 @@
 %----------------------------------------------------------------------------------------
 
 \definecolor{color1}{RGB}{0,0,0}    % Color of the article title and sections
-\definecolor{color2}{RGB}{250,128,114} % Color of the boxes behind the abstract and headings
+\definecolor{color2}{RGB}{255,255,255}
+%\definecolor{color2}{RGB}{250,128,114} % Color of the boxes behind the abstract and headings
 %\definecolor{color2}{RGB}{178,34,34} % Color of the boxes behind the abstract and headings
 
 %----------------------------------------------------------------------------------------
@@ -206,17 +208,18 @@ The following information pertains to the session used to generate this report.
 \lipsum[1]
 
 \subsection{Summary statistics}
+This is just some random repeating text. This is just some random repeating text. This is just some random repeating text. This is just some random repeating text. This is just some random repeating text. This is just some random repeating text. This is just some random repeating text. This is just some random repeating text. This is just some random repeating text. This is just some random repeating text.
 
 \begin{figure}[h]\centering
 
-\includegraphics[width=\columnwidth]{./figure/histogram}
+\includegraphics[width=\columnwidth,viewport = 0 20 216 240]{./figure/histogram}
 \protect\caption{A histogram of the distribution of individual rubric score frequencies over all twelve semesters.}
 \label{fig:histogram}
 \end{figure}
 The overall overall average rubric score for all twelve semesters was 2.54. The distribution of the rubrics scores is shown below.
 \begin{center}
 % latex table generated in R 3.3.0 by xtable 1.8-2 package
-% Sun Jul 24 22:44:45 2016
+% Tue Jul 26 11:40:00 2016
 \begin{table}[ht]
 \centering
 \caption{Distribution of rubric scores for SCI1} 
@@ -308,9 +311,11 @@ Richard & Miles & $2$ \\
 \subsection{Plan of action}
 \lipsum[1] % Dummy text
 \begin{itemize}[noitemsep] % [noitemsep] removes whitespace between the items for a compact look
-\item First action item
-\item Second action item
-\item Third action item
+\item No modifications
+\item Modify the assignment
+\item Modify instruction
+\item Modify the learning outcome
+\item Modify the competency
 \end{itemize}
 
 %------------------------------------------------

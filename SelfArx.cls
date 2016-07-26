@@ -60,8 +60,9 @@ letterpaper]{geometry}%
 \RequirePackage[labelfont={bf,sf,small},%
 labelsep=period,%
 justification=raggedright]{caption}
-\setlength{\abovecaptionskip}{0pt}
-\setlength{\belowcaptionskip}{0pt}
+\setlength{\abovecaptionskip}{-1ex}
+\setlength{\belowcaptionskip}{-1ex}
+\setlength{\intextsep}{10pt plus 1.0pt minus 2.0pt}
 
 %----------------------------------------------------------------------
 %	PAGE HEADER
@@ -198,7 +199,8 @@ justification=raggedright]{caption}
 \vskip18pt%
 \fcolorbox{color1}{white}{%
 \parbox{\textwidth-2\fboxsep-2\fboxrule}{\centering%
-\colorbox{color2!10}{%
+%\colorbox{color2!25}{%
+\colorbox{color2}{%
 \parbox{\textwidth-4\fboxsep-2\fboxrule}{%
 \ifx\@Keywords\@empty%
 \sffamily\textbf{\abstractname}\\\@Abstract%

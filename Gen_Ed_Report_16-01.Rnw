@@ -25,6 +25,7 @@
 \usepackage[english]{babel}         % Specify a different language here - english by default
 \usepackage{lipsum}                 % Required to insert dummy text. To be removed otherwise
 \usepackage{fancyhdr}               % Required to put the logo on the top of the first page
+\usepackage{float}
 \usepackage{enumitem}
 \setlist[itemize]{itemsep=0mm}
 \usepackage[style=authoryear,doi=false,isbn=false,url=false,natbib=true,backend=biber]{biblatex}
@@ -42,7 +43,8 @@
 %----------------------------------------------------------------------------------------
 
 \definecolor{color1}{RGB}{0,0,0}    % Color of the article title and sections
-\definecolor{color2}{RGB}{250,128,114} % Color of the boxes behind the abstract and headings
+\definecolor{color2}{RGB}{255,255,255}
+%\definecolor{color2}{RGB}{250,128,114} % Color of the boxes behind the abstract and headings
 %\definecolor{color2}{RGB}{178,34,34} % Color of the boxes behind the abstract and headings
 
 %----------------------------------------------------------------------------------------
@@ -154,16 +156,18 @@ session
 \lipsum[1]
 
 \subsection{Summary statistics}
+This is just some random repeating text. This is just some random repeating text. This is just some random repeating text. This is just some random repeating text. This is just some random repeating text. This is just some random repeating text. This is just some random repeating text. This is just some random repeating text. This is just some random repeating text. This is just some random repeating text.
 
 \begin{figure}[h]\centering
 <<histogram, echo=FALSE, message=FALSE, results='hide'>>=
 myData <- read.csv("BIOL200Data.csv", row.names = NULL, stringsAsFactors = FALSE)
 distribution <- table(myData$SCI1)
-pdf("./figure/histogram.pdf", width=3.5, height=4.5)
-barplot(distribution, ylim=c(0,500), las=1, xlab="Rubric Score on SCI1", ylab="Overall Frequency", axis.lty = 1, col="firebrick")
+pdf("./figure/histogram.pdf", width=3.0, height=4.0)
+barplot(distribution, ylim=c(0,500), las=1, xlab="", ylab="Overall Frequency", axis.lty = 1, col="firebrick", cex.axis = 0.85, cex.lab = 0.85, cex.names=0.85)
+mtext(side = 1, text = "Rubric Score on SCI1", line = 1.8, cex=0.85)
 dev.off()
 @
-\includegraphics[width=\columnwidth]{./figure/histogram}
+\includegraphics[width=\columnwidth,viewport = 0 20 216 240]{./figure/histogram}
 \protect\caption{A histogram of the distribution of individual rubric score frequencies over all twelve semesters.}
 \label{fig:histogram}
 \end{figure}
@@ -315,9 +319,11 @@ Richard & Miles & $2$ \\
 \subsection{Plan of action}
 \lipsum[1] % Dummy text
 \begin{itemize}[noitemsep] % [noitemsep] removes whitespace between the items for a compact look
-\item First action item
-\item Second action item
-\item Third action item
+\item No modifications
+\item Modify the assignment
+\item Modify instruction
+\item Modify the learning outcome
+\item Modify the competency
 \end{itemize}
 
 %------------------------------------------------
