@@ -101,12 +101,10 @@
 }
 \thispagestyle{firststyle}
 
-%----------------------------------------------------------------------------------------
-%	ARTICLE CONTENTS
-%----------------------------------------------------------------------------------------
 
-\section{Introduction} % The \section*{} command stops section numbering
-%\addcontentsline{toc}{section}{Introduction} % Adds this section to the table of contents
+%----------------------------------------------------------------------------------------
+%	INITIALIZE R FOR THIS DOCUMENT
+%----------------------------------------------------------------------------------------
 
 <<packages, echo=FALSE, message=FALSE, warning=FALSE>>=
 # Install and load the packages needed by R for this report
@@ -126,9 +124,19 @@ packages(ggplot2)       # make pretty pictures
 packages(forestplot)    # present meta-analysis
 @
 
+<<data, echo=FALSE, message=FALSE, warning=FALSE>>=
+# Load the main data file for all analyses in this document
+myData <- read.csv("BIOL200Data.csv", row.names = NULL, stringsAsFactors = FALSE)
+@
 
-\lipsum[1] % Dummy text
- and some mathematics $\cos\pi=-1$ and $\alpha$ in the text\footnote{And some mathematics $\cos\pi=-1$ and $\alpha$ in the footnote.}.
+%----------------------------------------------------------------------------------------
+%	ARTICLE CONTENTS
+%----------------------------------------------------------------------------------------
+
+\section{Introduction} % The \section*{} command stops section numbering
+%\addcontentsline{toc}{section}{Introduction} % Adds this section to the table of contents
+
+PUT THE INTRODUCTION TEXT HERE.
 
 %------------------------------------------------
 
@@ -136,7 +144,8 @@ packages(forestplot)    # present meta-analysis
 %\addcontentsline{toc}{section}{Methods} % Adds this section to the table of contents
 
 \subsection{Collection of assessment data}
-\lipsum[1]
+
+
 \subsection{De-identification of student data}
 \lipsum[1]
 \subsection{Data analysis}
@@ -162,7 +171,6 @@ This is just some random repeating text. This is just some random repeating text
 
 \begin{figure}[h]\centering
 <<histogram, echo=FALSE, message=FALSE, results='hide'>>=
-myData <- read.csv("BIOL200Data.csv", row.names = NULL, stringsAsFactors = FALSE)
 distribution <- table(myData$SCI1)
 pdf("./figure/histogram.pdf", width=3.0, height=4.0)
 barplot(distribution, ylim=c(0,500), las=1, xlab="", ylab="Overall Frequency", axis.lty = 1, col="firebrick", cex.axis = 0.85, cex.lab = 0.85, cex.names=0.85)
@@ -174,7 +182,7 @@ dev.off()
 \label{fig:histogram}
 \end{figure}
 
-The overall overall average rubric score for all twelve semesters was \Sexpr{round(mean(myData$SCI1),2)}. The distribution of the rubrics scores is shown below.
+The overall overall average rubric score for all \Sexpr{max(myData$Order)} semesters was \Sexpr{round(mean(myData$SCI1),2)}. The distribution of the rubrics scores is shown below.
 
 \begin{figure}[h]\centering
 <<anova, echo=FALSE, message=FALSE, results='hide'>>=
@@ -252,7 +260,6 @@ weighted.var.se <- function(x, w, na.rm=FALSE)
 }
 
 #myData <- readRDS("./processed/cleanData.rds")
-myData <- read.csv("./BIOL200Data.csv")
 myData$SCI1 <- as.numeric(myData$SCI1)
 
 dataTable <- myData %>%

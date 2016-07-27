@@ -11,6 +11,7 @@ The purpose of this project is to create a completely open and sustainable workf
 * **references.bib** = A bibtex file containing all the references for the report.
 * **/figure** = a folder containing all the figures for the report as .pdf files.
 * **/figure/logo.png** = The Ferris State University logo for the report headers.
+* **/figure/barplot.pdf** = A stacked bar plot showing rubric score distribution by semester.
+* **/figure/forest.pdf** = The forest plot of class performance by semester.
 * **/figure/histogram.pdf** = A histogram of the student rubric scores.
-* **/figure/foret.pdf** = The forest plot of class performance by semester.
 * **SelfArx.cls** = A LaTeX class file for the report template.

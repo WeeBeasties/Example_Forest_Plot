@@ -8,8 +8,9 @@ This file describes the structure of the **BIOL200Data.csv** dataset. These data
 * **Competency** = One of the eight General Education competencies (e.g. Natural Sciences) – *character, factor*
 * **Student.Work** = The nature of the student work evaluated (e.g. Presentations, Exams, etc.) – *character, factor*
 * **Form** = The form used to report data (either Rubric or Score) – *character, factor*
+* **Record.Key** = A unique eight-digit key automatically generated for each student entry
 * **SCI1** = Rubric score for the first Natural Sciences learning outcome (0 to 4) – *integer*
 * **SCI2** = Rubric score for the second Natural Sciences learning outcome (0 to 4)  – *integer*
 * **SCI3** = Rubric score for the third Natural Sciences learning outcome (0 to 4) – *integer*
 * **SCI4** = Rubric score for the fourth Natural Sciences learning outcome (0 to 4) – *integer*
-* **file** = A number corresponding to the order that the individual files were added (1 - 12) *integer*
+* **Order** = A number corresponding to the order that the individual files were added (1 - 12) *integer*
