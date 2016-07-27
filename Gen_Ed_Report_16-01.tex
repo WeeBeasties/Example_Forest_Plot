@@ -95,8 +95,8 @@
 
 \definecolor{color1}{RGB}{0,0,0}    % Color of the article title and sections
 \definecolor{color2}{RGB}{255,255,255}
+\definecolor{color3}{RGB}{178,34,34} % Color of the boxes behind the abstract and headings
 %\definecolor{color2}{RGB}{250,128,114} % Color of the boxes behind the abstract and headings
-%\definecolor{color2}{RGB}{178,34,34} % Color of the boxes behind the abstract and headings
 
 %----------------------------------------------------------------------------------------
 %	HYPERLINKS
@@ -218,23 +218,29 @@ This is just some random repeating text. This is just some random repeating text
 \protect\caption{A histogram of the distribution of individual rubric score frequencies over all twelve semesters.}
 \label{fig:histogram}
 \end{figure}
+
 The overall overall average rubric score for all twelve semesters was 2.54. The distribution of the rubrics scores is shown below.
+
+\begin{figure}[h]\centering
+
+\includegraphics[width=\columnwidth,viewport = 30 0 288 288]{./figure/barplot}
+\protect\caption{A barplot showing the distribution of rubric scores broken down by semester.}
+\label{fig:barplot}
+\end{figure}
+
 \begin{center}
 % latex table generated in R 3.3.0 by xtable 1.8-2 package
-% Tue Jul 26 14:40:09 2016
+% Wed Jul 27 15:35:45 2016
 \begin{table}[ht]
 \centering
-\caption{Distribution of rubric scores for SCI1} 
-\label{tab:distribution}
-\begin{tabular}{rr}
+\caption{One-way ANOVA analysis of scores by semester} 
+\label{tab:anova}
+\begin{tabular}{lrrrrr}
   \hline
- & V1 \\ 
+ & Df & Sum Sq & Mean Sq & F value & Pr($>$F) \\ 
   \hline
-0 &  60 \\ 
-  1 & 110 \\ 
-  2 & 188 \\ 
-  3 & 360 \\ 
-  4 & 178 \\ 
+Semester & 12 & 142.74 & 11.89 & 9.85 & 0.0000 \\ 
+  Residuals & 960 & 1159.22 & 1.21 &  &  \\ 
    \hline
 \end{tabular}
 \end{table}

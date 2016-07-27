@@ -88,16 +88,16 @@ justification=raggedright]{caption}
 
 \RequirePackage[explicit]{titlesec}
 \titleformat{\section}
-  {\color{color1}\large\sffamily\bfseries}
+  {\color{color2}\large\sffamily\bfseries}
   {}
   {0em}
-  {\colorbox{color2!60}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\centering\arabic{section}. #1}}}
+  {\colorbox{color3!90}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\centering\arabic{section}. #1}}}
   []
 \titleformat{name=\section,numberless}
-  {\color{color1}\large\sffamily\bfseries}
+  {\color{color2}\large\sffamily\bfseries}
   {}
   {0em}
-  {\colorbox{color2!60}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\centering#1}}}
+  {\colorbox{color3!90}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\centering#1}}}
   []
 \titleformat{\subsection}
   {\color{color1}\sffamily\bfseries}

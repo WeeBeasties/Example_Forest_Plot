@@ -46,8 +46,8 @@
 
 \definecolor{color1}{RGB}{0,0,0}    % Color of the article title and sections
 \definecolor{color2}{RGB}{255,255,255}
+\definecolor{color3}{RGB}{178,34,34} % Color of the boxes behind the abstract and headings
 %\definecolor{color2}{RGB}{250,128,114} % Color of the boxes behind the abstract and headings
-%\definecolor{color2}{RGB}{178,34,34} % Color of the boxes behind the abstract and headings
 
 %----------------------------------------------------------------------------------------
 %	HYPERLINKS
@@ -173,13 +173,60 @@ dev.off()
 \protect\caption{A histogram of the distribution of individual rubric score frequencies over all twelve semesters.}
 \label{fig:histogram}
 \end{figure}
+
 The overall overall average rubric score for all twelve semesters was \Sexpr{round(mean(myData$SCI1),2)}. The distribution of the rubrics scores is shown below.
+
+\begin{figure}[h]\centering
+<<anova, echo=FALSE, message=FALSE, results='hide'>>=
+add_legend <- function(...) {
+  opar <- par(fig=c(0, 1, 0, 1), oma=c(0, 0, 0, 0),
+    mar=c(0, 0, 0, 0), new=TRUE)
+  on.exit(par(opar))
+  plot(0, 0, type='n', bty='n', xaxt='n', yaxt='n')
+  legend(...)
+}
+
+myModel <- lm(SCI1 ~ Semester, data = myData)
+bySemester <- as.matrix(table(myData$SCI1,myData$Order))
+bySemester[ ,c(1,2,3,4,5,6,7,8,9,10,11,12,13)] <- bySemester[ ,c(13,12,11,10,9,8,7,6,5,4,3,2,1)]
+myLabels <- c("Fall 2015","Spring 2015","Fall 2014","Spring 2014","Fall 2013","Spring 2013","Fall 2012","Spring 2012","Fall 2011","Spring 2011","Fall 2010","Spring 2010","Fall 2009")
+#col <- c("firebrick","red","yellow","aquamarine","darkgreen")
+col <- c("#a50f15","#de2d26","#fb6a4a","#fcae91","#fee5d9")
+pdf("./figure/barplot.pdf", width=4.0, height=4)
+par(mar=c(4,8,3,2)+0.1)
+barplot(as.matrix(bySemester),
+	col=col,
+	horiz = TRUE,
+	xlab="",
+	ylab="",
+	names.arg=myLabels,
+	xlim=c(0,120),
+	las=1,
+	cex.axis = 0.75,
+	cex.lab=0.75,
+	cex.names = 0.75)
+mtext("Frequency",side=1,line=2, cex = 0.75)
+mtext("Semester",side=2,line=5, cex = 0.75)
+add_legend("top",                             # Add a legend to the plot
+       legend=c("0","1","2","3","4"),          # Text for the legend
+       fill=col,                               # Fill for boxes of the legend
+       title="Rubric Score",
+       bty="n",
+       cex = 0.75,
+       horiz = TRUE)                           # Fill for boxes of the legend
+dev.off()
+@
+\includegraphics[width=\columnwidth,viewport = 30 0 288 288]{./figure/barplot}
+\protect\caption{A barplot showing the distribution of rubric scores broken down by semester.}
+\label{fig:barplot}
+\end{figure}
+
 \begin{center}
 <<echo=FALSE, results='asis'>>=
 library(xtable)
-tempTable <- (xtable(table(myData$SCI1),
-caption="Distribution of rubric scores for SCI1",
-label="tab:distribution"))
+tempTable <- (xtable(anova(myModel),
+caption="One-way ANOVA analysis of scores by semester",
+label="tab:anova", type="latex"))
 print(tempTable, caption.placement="top")
 @
 \end{center}
@@ -229,14 +276,13 @@ headings <- c("Semester","Prefix","Level","Outcome","N","Mean")
 textTable <- rbind(headings,textTable)
 theSummary <- c("Weighted average",NA,NA,NA,NA,myWeighted)
 textTable <- rbind(textTable,theSummary)
-write.csv(textTable, file = "textTable.csv")
 
 align <- c("c","c","c","c","c","c")
 
 pdf("./figure/forest.pdf", width=8.0, height=4.0)
 forestplot(textTable, dataTable,
 	   new_page = FALSE,                             # Image on one page
-	   is.summary=c(TRUE,rep(FALSE,12),TRUE),         # Bold for heading and summary lines
+	   is.summary=c(TRUE,rep(FALSE,13),TRUE),         # Bold for heading and summary lines
 	   boxsize = .3,                                # Set symbol size
 	   xlog=FALSE,                                   # Linear scale
 	   xticks = c(0,1,2,3,4),                        # Ticks at the rubric values
