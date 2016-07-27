@@ -166,9 +166,7 @@
 \section{Introduction} % The \section*{} command stops section numbering
 %\addcontentsline{toc}{section}{Introduction} % Adds this section to the table of contents
 
-
-\lipsum[1] % Dummy text
- and some mathematics $\cos\pi=-1$ and $\alpha$ in the text\footnote{And some mathematics $\cos\pi=-1$ and $\alpha$ in the footnote.}.
+PUT THE INTRODUCTION TEXT HERE.
 
 %------------------------------------------------
 
@@ -176,7 +174,25 @@
 %\addcontentsline{toc}{section}{Methods} % Adds this section to the table of contents
 
 \subsection{Collection of assessment data}
-\lipsum[1]
+Student performance on the first lecture exam in a 200-level Biology course was analyzed. Individual student scores were collected using the new General Education Natural Sciences "scores" data workbook. Student scores were automatically converted to a rubric score by the workbook using the equivalencies shown in Table \ref{tab:convert}.
+
+\begin{table}[hbt]
+\caption{Conversion of percentages to rubric scores}
+\centering
+\begin{tabular}{c c c}
+\textbf{Percent correct} & \textbf{Rubric} & \textbf{Interpretation}   \\
+\hline
+ 0.0 to 49.9\%   &   0   &   Unsatisfactory                                \\
+50.0 to 59.9\%   &   1   &   Beginning                                     \\
+60.0 to 69.9\%   &   2   &   Developing                                    \\
+70.0 to 84.9\%   &   3   &   Proficient                                    \\
+85.0 to 100.0\%  &   4   &   Advanced                                      \\
+\end{tabular}
+\label{tab:convert}
+\end{table}
+
+These files all contain personally identifiable information (PII) and are, therefore, subject to FERPA regulations. For this reason, they are not directly shared. Instead, they are stored in a data folder in TracDat: Core Competency: Natural Sciences $\Rightarrow$ Assessment $\Rightarrow$ Proof of Concept.
+
 \subsection{De-identification of student data}
 \lipsum[1]
 \subsection{Data analysis}
@@ -237,7 +253,7 @@ The overall overall average rubric score for all 13 semesters was 2.54. The dist
 
 \begin{center}
 % latex table generated in R 3.3.0 by xtable 1.8-2 package
-% Wed Jul 27 15:50:49 2016
+% Wed Jul 27 17:38:16 2016
 \begin{table}[ht]
 \centering
 \caption{One-way ANOVA analysis of scores by semester} 
