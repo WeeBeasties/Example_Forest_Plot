@@ -25,11 +25,11 @@
 \usepackage[english]{babel}         % Specify a different language here - english by default
 \usepackage{lipsum}                 % Required to insert dummy text. To be removed otherwise
 \usepackage{fancyhdr}               % Required to put the logo on the top of the first page
-\usepackage{float}
-\usepackage{caption}
-\captionsetup[table]{skip=3pt}
-\usepackage{enumitem}
-\setlist[itemize]{itemsep=0mm}
+\usepackage{float}                  % Extra help with figures and tables
+\usepackage{caption}                % Helps to format captions
+\captionsetup[table]{skip=3pt}      % Spacing after caption
+\usepackage{enumitem}               % Tightening lists
+\setlist[itemize]{itemsep=0mm}      % Tightening lists
 \usepackage[style=authoryear,doi=false,isbn=false,url=false,natbib=true,backend=biber]{biblatex}
 \bibliography{references}           % Point to the bibtex bibliography file
 
@@ -44,10 +44,9 @@
 %	COLORS
 %----------------------------------------------------------------------------------------
 
-\definecolor{color1}{RGB}{0,0,0}    % Color of the article title and sections
-\definecolor{color2}{RGB}{255,255,255}
-\definecolor{color3}{RGB}{178,34,34} % Color of the boxes behind the abstract and headings
-%\definecolor{color2}{RGB}{250,128,114} % Color of the boxes behind the abstract and headings
+\definecolor{color1}{RGB}{0,0,0}         % Color of the article title
+\definecolor{color2}{RGB}{255,255,255}   % Section heading text color
+\definecolor{color3}{RGB}{178,34,34}     % Color of the boxes behind the abstract and headings
 
 %----------------------------------------------------------------------------------------
 %	HYPERLINKS
@@ -97,7 +96,6 @@
 {
 	\fancyhf{}
 	\fancyhead[L]{\includegraphics[height=0.55cm]{./figure/logo.png}}
-	%\fancyhead[L]{\includegraphics[height=19.25pt]{logo.png}}
 }
 \thispagestyle{firststyle}
 
@@ -124,10 +122,52 @@ packages(ggplot2)       # make pretty pictures
 packages(forestplot)    # present meta-analysis
 @
 
+<<functions, echo=FALSE, message=FALSE, warning=FALSE>>=
+# Load some user-defined functions to help with the analysis
+
+# Adds legends above figures (used for barplot)
+add_legend <- function(...) {
+  opar <- par(fig=c(0, 1, 0, 1), oma=c(0, 0, 0, 0),
+    mar=c(0, 0, 0, 0), new=TRUE)
+  on.exit(par(opar))
+  plot(0, 0, type='n', bty='n', xaxt='n', yaxt='n')
+  legend(...)
+}
+
+#  Computes the variance of a weighted mean following Cochran 1977 definition
+#  Code found online at:
+#  http://stats.stackexchange.com/questions/25895/computing-standard-error-in-weighted-mean-estimation
+weighted.var.se <- function(x, w, na.rm=FALSE)
+	{
+	if (na.rm) { w <- w[i <- !is.na(x)]; x <- x[i] }
+	n = length(w)
+	xWbar = weighted.mean(x,w,na.rm=na.rm)
+	wbar = mean(w)
+	out = sqrt(n/((n-1)*sum(w)^2)*(sum((w*x-wbar*xWbar)^2)-2*xWbar*sum((w-wbar)*(w*x-wbar*xWbar))+xWbar^2*sum((w-wbar)^2)))
+	low = xWbar-(out*1.96)
+	high = xWbar+(out*1.96)
+	myOutput <- c(mean=format(round(xWbar,2),nsmall=2),low=format(round(low,2),nsmall=2),high=format(round(high,2),nsmall=2))
+	return(myOutput)
+}
+
+# Computes omega squared (effect size) for an ANOVA analysis
+omega_sq <- function(aovm){
+    sum_stats <- summary(aovm)[[1]]
+    SSm <- sum_stats[["Sum Sq"]][1]
+    SSr <- sum_stats[["Sum Sq"]][2]
+    DFm <- sum_stats[["Df"]][1]
+    MSr <- sum_stats[["Mean Sq"]][2]
+    W2 <- (SSm-DFm*MSr)/(SSm+SSr+MSr)
+    return(W2)
+}
+
+@
+
 <<data, echo=FALSE, message=FALSE, warning=FALSE>>=
 # Load the main data file for all analyses in this document
 myData <- read.csv("BIOL200Data.csv", row.names = NULL, stringsAsFactors = FALSE)
 @
+
 
 %----------------------------------------------------------------------------------------
 %	ARTICLE CONTENTS
@@ -164,9 +204,8 @@ Student performance on the first lecture exam in a 200-level Biology course was 
 These files all contain personally identifiable information (PII) and are, therefore, subject to FERPA regulations. For this reason, they are not directly shared. Instead, they are stored in a data folder in TracDat: Core Competency: Natural Sciences $\Rightarrow$ Assessment $\Rightarrow$ Proof of Concept.
 
 \subsection{De-identification of student data}
-\lipsum[1]
-\subsection{Data analysis}
-\lipsum[1]
+Copies of the \Sexpr{max(myData$Order)} data files were downloaded from TracDat. An R aggregator script was used to read the data from these data sheets and contatenate it into one dataset. Student names were removed and each student's entry was given a unique eight-digit identifier - the Record.Key. These keys may be used for longitudinal studies in the future. The algorithm used is kept in an encrypted site and shared with **noone**. The de-identified dataset contains \Sexpr{length(myData$Order)} student entries and is stored as a comma-delimited textfile (BIOL200Data.csv).
+
 \subsection{Data provenance}
 \paragraph{Location of public website files} \lipsum[1] % Dummy text
 \paragraph{Citation of this work} \lipsum[1] % Dummy text
@@ -203,14 +242,6 @@ The overall overall average rubric score for all \Sexpr{max(myData$Order)} semes
 
 \begin{figure}[h]\centering
 <<anova, echo=FALSE, message=FALSE, results='hide'>>=
-add_legend <- function(...) {
-  opar <- par(fig=c(0, 1, 0, 1), oma=c(0, 0, 0, 0),
-    mar=c(0, 0, 0, 0), new=TRUE)
-  on.exit(par(opar))
-  plot(0, 0, type='n', bty='n', xaxt='n', yaxt='n')
-  legend(...)
-}
-
 myModel <- lm(SCI1 ~ Semester, data = myData)
 bySemester <- as.matrix(table(myData$SCI1,myData$Order))
 bySemester[ ,c(1,2,3,4,5,6,7,8,9,10,11,12,13)] <- bySemester[ ,c(13,12,11,10,9,8,7,6,5,4,3,2,1)]
@@ -258,25 +289,8 @@ print(tempTable, caption.placement="top")
 
 \lipsum[1]
 \subsection{Meta-analysis}
-\begin{figure*}[ht]\centering % Using \begin{figure*} makes the figure take up the entire width of the page
+\begin{figure*}[htb]\centering % Using \begin{figure*} makes the figure take up the entire width of the page
 <<forest, echo=FALSE, message=FALSE, warning=FALSE, results='hide'>>=
-weighted.var.se <- function(x, w, na.rm=FALSE)
-	#  Computes the variance of a weighted mean following Cochran 1977 definition
-	#  Code found online at:
-	#  http://stats.stackexchange.com/questions/25895/computing-standard-error-in-weighted-mean-estimation
-{
-	if (na.rm) { w <- w[i <- !is.na(x)]; x <- x[i] }
-	n = length(w)
-	xWbar = weighted.mean(x,w,na.rm=na.rm)
-	wbar = mean(w)
-	out = sqrt(n/((n-1)*sum(w)^2)*(sum((w*x-wbar*xWbar)^2)-2*xWbar*sum((w-wbar)*(w*x-wbar*xWbar))+xWbar^2*sum((w-wbar)^2)))
-	low = xWbar-(out*1.96)
-	high = xWbar+(out*1.96)
-	myOutput <- c(mean=format(round(xWbar,2),nsmall=2),low=format(round(low,2),nsmall=2),high=format(round(high,2),nsmall=2))
-	return(myOutput)
-}
-
-#myData <- readRDS("./processed/cleanData.rds")
 myData$SCI1 <- as.numeric(myData$SCI1)
 
 dataTable <- myData %>%
@@ -306,8 +320,8 @@ align <- c("c","c","c","c","c","c")
 pdf("./figure/forest.pdf", width=8.0, height=4.0)
 forestplot(textTable, dataTable,
 	   new_page = FALSE,                             # Image on one page
-	   is.summary=c(TRUE,rep(FALSE,13),TRUE),         # Bold for heading and summary lines
-	   boxsize = .3,                                # Set symbol size
+	   is.summary=c(TRUE,rep(FALSE,13),TRUE),        # Bold for heading and summary lines
+	   boxsize = .3,                                 # Set symbol size
 	   xlog=FALSE,                                   # Linear scale
 	   xticks = c(0,1,2,3,4),                        # Ticks at the rubric values
 	   zero = 2.6,                                   # Set threshold value

@@ -63,6 +63,7 @@ justification=raggedright]{caption}
 \setlength{\abovecaptionskip}{-1ex}
 \setlength{\belowcaptionskip}{-1ex}
 \setlength{\intextsep}{10pt plus 1.0pt minus 2.0pt}
+\setlength{\textfloatsep}{5pt plus 1.0pt minus 2.0pt}
 
 %----------------------------------------------------------------------
 %	PAGE HEADER
@@ -172,7 +173,7 @@ justification=raggedright]{caption}
 %----------------------------------------------------------------------
 
 \RequirePackage{enumitem}
-%\setlist{nolistsep} % Uncomment to remove spacing between items in lists (enumerate, itemize)
+\setlist{nolistsep} % Uncomment to remove spacing between items in lists (enumerate, itemize)
 
 %----------------------------------------------------------------------
 %	ABSTRACT+AUTHOR FRAME
