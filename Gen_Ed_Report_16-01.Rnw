@@ -184,7 +184,7 @@ PUT THE INTRODUCTION TEXT HERE.
 %\addcontentsline{toc}{section}{Methods} % Adds this section to the table of contents
 
 \subsection{Collection of assessment data}
-Student performance on the first lecture exam in a 200-level Biology course was analyzed. Individual student scores were collected using the new General Education Natural Sciences "scores" data workbook. Student scores were automatically converted to a rubric score by the workbook using the equivalencies shown in Table \ref{tab:convert}.
+Student performance on the first lecture exam in a 200-level Biology course was analyzed. Individual student scores were collected using the new General Education Natural Sciences "scores" data workbook for thirteen semesters. Student scores were automatically converted to a rubric score by the workbook using the equivalencies shown in Table \ref{tab:convert}.
 
 \begin{table}[hbt]
 \caption{Conversion of percentages to rubric scores}
@@ -212,7 +212,7 @@ Copies of the \Sexpr{max(myData$Order)} data files were downloaded from TracDat.
 \paragraph{Session information}
 The following information pertains to the session used to generate this report.
 <<Session, echo=FALSE, message=FALSE, comment=NA, results='asis'>>=
-session <- toLatex(sessionInfo(), citations=FALSE)
+session <- utils::toLatex(sessionInfo(), locale=FALSE, citations=FALSE)
 session
 #toLatex(session)
 @
