@@ -102,7 +102,7 @@
 %----------------------------------------------------------------------------------------
 
 \usepackage{hyperref}               % Required for hyperlinks
-\hypersetup{hidelinks,colorlinks,breaklinks=true,urlcolor=color2,citecolor=color1,linkcolor=color1,bookmarksopen=false,pdftitle={Title},pdfauthor={Author}}
+\hypersetup{hidelinks,colorlinks,breaklinks=true,urlcolor=color3,citecolor=color3,linkcolor=color3,bookmarksopen=false,pdftitle={Title},pdfauthor={Author}}
 
 %----------------------------------------------------------------------------------------
 %	NO SECTION NUMBERS
@@ -195,11 +195,14 @@ Student performance on the first lecture exam in a 200-level Biology course was 
 These files all contain personally identifiable information (PII) and are, therefore, subject to FERPA regulations. For this reason, they are not directly shared. Instead, they are stored in a data folder in TracDat: Core Competency: Natural Sciences $\Rightarrow$ Assessment $\Rightarrow$ Proof of Concept.
 
 \subsection{De-identification of student data}
-Copies of the 13 data files were downloaded from TracDat. An R aggregator script was used to read the data from these data sheets and contatenate it into one dataset. Student names were removed and each student's entry was given a unique eight-digit identifier - the Record.Key. These keys may be used for longitudinal studies in the future. The algorithm used is kept in an encrypted site and shared with **noone**. The de-identified dataset contains 973 student entries and is stored as a comma-delimited textfile (BIOL200Data.csv).
+Copies of the 13 data files were downloaded from TracDat. An R aggregator script was used to read the data from these data sheets and contatenate it into one dataset. Student names were removed and each student's entry was given a unique eight-digit identifier - the Record.Key. These keys may be used for longitudinal studies in the future. The algorithm used is kept in an encrypted site and shared with \textit{noone}. The de-identified dataset contains 973 student entries and is stored as a comma-delimited textfile (BIOL200Data.csv).
 
 \subsection{Data provenance}
 \paragraph{Location of public website files} \lipsum[1] % Dummy text
-\paragraph{Citation of this work} \lipsum[1] % Dummy text
+
+\paragraph{Citation of this work}
+All of the de-identified data, analysis code, and documentation that constitute this report project may be freely used, modified, and shared. The code file, Gen\_Ed\_Report\_16-01.Rmd, is released under the \href{https://opensource.org/licenses/MIT}{MIT license}. The de-identified dataset, BIOL200Data.csv, is released under the Creative Commons \href{https://creativecommons.org/publicdomain/zero/1.0/}{CC0 license}. All documentation, including README.md, Codebook.md, and this report, are released under the Creative Commons \href{https://creativecommons.org/licenses/by/4.0/}{CC-BY} licence. Any questions, comments, or suggestions may be sent to \href{mailto:CliftonFranklund@ferris.edu}{Dr. Franklund}.
+
 \paragraph{Session information}
 The following information pertains to the session used to generate this report.
 \begin{itemize}\raggedright
@@ -251,7 +254,7 @@ The overall overall average rubric score for all 13 semesters was 2.54. The dist
 
 \begin{center}
 % latex table generated in R 3.3.0 by xtable 1.8-2 package
-% Wed Aug 10 09:06:16 2016
+% Mon Aug 15 14:44:07 2016
 \begin{table}[ht]
 \centering
 \caption{One-way ANOVA analysis of scores by semester} 
