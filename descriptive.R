@@ -1,7 +1,0 @@
-library(moments)
-myData <- read.csv("BIOL200Data.csv", row.names = NULL, stringsAsFactors = FALSE)
-mean(myData$SCI1)
-distribution <- table(myData$SCI1)
-barplot(distribution, ylim=c(0,500), las=1, xlab="Rubric Score on SCI1", ylab="Overall Frequency", axis.lty = 1, col="maroon")
-t.test(x=myData$SCI1, mu=2.6, alternative = "greater")
-skewness(myData$SCI1)

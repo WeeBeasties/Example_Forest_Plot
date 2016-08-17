@@ -79,8 +79,9 @@
 \captionsetup[table]{skip=3pt}      % Spacing after caption
 \usepackage{enumitem}               % Tightening lists
 \setlist[itemize]{itemsep=0mm}      % Tightening lists
-\usepackage[style=authoryear,doi=false,isbn=false,url=false,natbib=true,backend=biber]{biblatex}
+\usepackage[style=authoryear,doi=true,isbn=false,url=false,natbib=true,backend=biber]{biblatex}
 \bibliography{references}           % Point to the bibtex bibliography file
+\renewbibmacro{in:}{}
 
 %----------------------------------------------------------------------------------------
 %	COLUMNS
@@ -102,12 +103,13 @@
 %----------------------------------------------------------------------------------------
 
 \usepackage{hyperref}               % Required for hyperlinks
-\hypersetup{hidelinks,colorlinks,breaklinks=true,urlcolor=color3,citecolor=color3,linkcolor=color3,bookmarksopen=false,pdftitle={Title},pdfauthor={Author}}
+\hypersetup{hidelinks,colorlinks,breaklinks=true,urlcolor=color3,citecolor=color3,linkcolor=color1,bookmarksopen=false,pdftitle={Title},pdfauthor={Author}}
 
 %----------------------------------------------------------------------------------------
 %	NO SECTION NUMBERS
 %----------------------------------------------------------------------------------------
 \setcounter{secnumdepth}{0}
+\setlength{\belowcaptionskip}{10pt}
 
 %----------------------------------------------------------------------------------------
 %	ARTICLE INFORMATION
@@ -128,7 +130,7 @@
 %	ABSTRACT
 %----------------------------------------------------------------------------------------
 
-\Abstract{Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.~}
+\Abstract{This report is a proof-of-concept for the proposed General Education assessment strategy at Ferris State University. Course-level student assessment data was gathered using TracDat and de-identified. The clean and tidy dataset was used to generate this report using the R statistical programming lanuage. Thirteen semesters of student performance on a lecture exam were used to evaluate student competency on Ferris Learning Outcome (FLO) 1. A meta-analysis of these data demonstrated that  performance was very near the criterion of success. There was substantial variation in enrollment and course performance over the timespan examined The utility of reports like these to analyze, distribute, and act up General Education assessment data will be investigated using faculty focus groups in the fall of 2016.~}
 
 %----------------------------------------------------------------------------------------
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -150,7 +152,7 @@
 
 
 %----------------------------------------------------------------------------------------
-%	INITIALIZE R FOR THIS DOCUMENT
+%	INITIALIZE R PARAMETERS FOR THIS DOCUMENT
 %----------------------------------------------------------------------------------------
 
 
@@ -164,10 +166,17 @@
 %	ARTICLE CONTENTS
 %----------------------------------------------------------------------------------------
 
+\begin{quote}
+\begin{center}
+\textit{Assessment is not a spreadsheet; \\ it's a conversation. --- Irmeli Halinen}
+\end{center}
+\end{quote}
+
 \section{Introduction} % The \section*{} command stops section numbering
 %\addcontentsline{toc}{section}{Introduction} % Adds this section to the table of contents
 
-PUT THE INTRODUCTION TEXT HERE.
+This report is a real analysis of course-level assessment data. However, its primary purpose is to serve as a proof-of-concept for the new General Education assessment process at Ferris State University. Assessment is perhaps best viewed as a scholarly activity that is focused upon programmatic improvement. Such scholarly work should be built upon, and contribute to, the relavent professional literature \citep{Weimer2015}. To emphasize that reality, this report is formatted in the form of a journal article and will be registered online with a digital objects identifier (doi).
+
 
 %------------------------------------------------
 
@@ -175,7 +184,7 @@ PUT THE INTRODUCTION TEXT HERE.
 %\addcontentsline{toc}{section}{Methods} % Adds this section to the table of contents
 
 \subsection{Collection of assessment data}
-Student performance on the first lecture exam in a 200-level Biology course was analyzed. Individual student scores were collected using the new General Education Natural Sciences "scores" data workbook for thirteen semesters. Student scores were automatically converted to a rubric score by the workbook using the equivalencies shown in Table \ref{tab:convert}.
+Student performance on the first lecture exam in a 200-level Biology course was analyzed. The content assessed in all exams was biological diversity. However, the number and format of the questions used varied by semester. Individual student scores were collected using the new General Education Natural Sciences "scores" data workbook for 13 semesters. Student scores were automatically converted to a rubric score by the workbook using the equivalencies shown in Table \ref{tab:convert}.
 
 \begin{table}[hbt]
 \caption{Conversion of percentages to rubric scores}
@@ -192,12 +201,14 @@ Student performance on the first lecture exam in a 200-level Biology course was 
 \label{tab:convert}
 \end{table}
 
-These files all contain personally identifiable information (PII) and are, therefore, subject to FERPA regulations. For this reason, they are not directly shared. Instead, they are stored in a data folder in TracDat: Core Competency: Natural Sciences $\Rightarrow$ Assessment $\Rightarrow$ Proof of Concept.
+These workbook files contain personally identifiable information (PII) and are, therefore, subject to FERPA regulations. For this reason, they are not directly shared. Instead, they are permenantly housed within a data folder in TracDat: Core Competency: Natural Sciences $\Rightarrow$ Assessment $\Rightarrow$ Proof\_of\_Concept.
 
 \subsection{De-identification of student data}
-Copies of the 13 data files were downloaded from TracDat. An R aggregator script was used to read the data from these data sheets and contatenate it into one dataset. Student names were removed and each student's entry was given a unique eight-digit identifier - the Record.Key. These keys may be used for longitudinal studies in the future. The algorithm used is kept in an encrypted site and shared with \textit{noone}. The de-identified dataset contains 973 student entries and is stored as a comma-delimited textfile (BIOL200Data.csv).
+Copies of the 13 data files were downloaded from TracDat. An R aggregator script was used to read the data from these data sheets and contatenate it into one dataset in a destructive process -- the downloaded copies were deleted in the process. Student names and identification numbers were redacted and each student's entry was given a unique eight-digit identifier - the Record.Key. These keys may be used for longitudinal studies in the future. The algorithm used is kept in an encrypted site and shared with \textit{no one}. The de-identified dataset contains 973 student entries and is formatted as a comma-delimited textfile (BIOL200Data.csv).
 
 \subsection{Data provenance}
+Data provenance is...\citep{Buneman2001}
+
 \paragraph{Location of public website files} \lipsum[1] % Dummy text
 
 \paragraph{Citation of this work}
@@ -254,7 +265,7 @@ The overall overall average rubric score for all 13 semesters was 2.54. The dist
 
 \begin{center}
 % latex table generated in R 3.3.0 by xtable 1.8-2 package
-% Mon Aug 15 14:44:07 2016
+% Wed Aug 17 09:52:44 2016
 \begin{table}[ht]
 \centering
 \caption{One-way ANOVA analysis of scores by semester} 
@@ -273,6 +284,21 @@ Semester & 12 & 142.74 & 11.89 & 9.85 & 0.0000 \\
 
 \lipsum[1]
 \subsection{Meta-analysis}
+A meta-analysis of the student learning results was performed by examining the weighted average of rubric scores. The fweighted average for semester performance was calculated using formula \ref{eq:weightX}. The confidence interval for the weighted mean was calculated using the calculated variance as described by Cochran \citep{Cochran1977}. The calculation for weighted variance is shown in formula \ref{eq:weightV}.
+
+\begin{equation}
+\bar{X}_w = \frac{\sum X_i W_i}{\sum W_i}
+\label{eq:weightX}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+(SEM_w)^2 = \frac{n}{(n-1)(\sum P_i)^2}\big[ \sum(P_i X_i - \bar{P}\bar{X}_w)^2 - 2 \\
+\bar{X}_w \sum(P_i - \bar{P})(P_i X_ i - \bar{P} \bar{X}_w) + \bar{X}_w^2 \sum(P_i - \bar{P})^2 \big]
+\label{eq:weightV}
+\end{split}
+\end{equation}
+
 \begin{figure*}[htb]\centering % Using \begin{figure*} makes the figure take up the entire width of the page
 
 \includegraphics[width=\textwidth]{./figure/forest}
@@ -282,27 +308,6 @@ Semester & 12 & 142.74 & 11.89 & 9.85 & 0.0000 \\
 
 \lipsum[1] % Dummy text
 \lipsum[1]
-
-\begin{equation}
-\cos^3 \theta =\frac{1}{4}\cos\theta+\frac{3}{4}\cos 3\theta
-\label{eq:refname2}
-\end{equation}
-
-\lipsum[1] % Dummy text
-
-\begin{enumerate}[noitemsep] % [noitemsep] removes whitespace between the items for a compact look
-\item First item in a list
-\item Second item in a list
-\item Third item in a list
-\end{enumerate}
-
-\begin{figure}[ht]\centering
-\includegraphics[width=\linewidth]{results}
-\caption{In-text Picture}
-\label{fig:results}
-\end{figure}
-
-Reference to Figure \ref{fig:results}.
 
 %------------------------------------------------
 
@@ -356,7 +361,7 @@ Richard & Miles & $2$ \\
 
 \addcontentsline{toc}{section}{Acknowledgments} % Adds this section to the table of contents
 
-So long and thanks for all the fish \citep{Figueredo:2009dg}.
+So long and thanks for all the fish \citep{Knuth1984}.
 
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST
