@@ -73,7 +73,7 @@ justification=raggedright]{caption}
 \RequirePackage{lastpage}  % Number of pages in the document
 \pagestyle{fancy}          % Enables the custom headers/footers
 % Headers
-\lhead{\includegraphics[height=0.55cm]{./figure/logo.png}}%
+\lhead{\includegraphics[height=0.55cm]{./art/logo.png}}%
 \chead{}%
 \rhead{\small\sffamily\bfseries \thepage/\pageref{LastPage}}
 % Footers

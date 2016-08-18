@@ -146,7 +146,7 @@
 \fancypagestyle{firststyle}
 {
 	\fancyhf{}
-	\fancyhead[L]{\includegraphics[height=0.55cm]{./figure/logo.png}}
+	\fancyhead[L]{\includegraphics[height=0.55cm]{./art/logo.png}}
 }
 \thispagestyle{firststyle}
 
@@ -177,6 +177,11 @@
 
 This report is a real analysis of course-level assessment data. However, its primary purpose is to serve as a proof-of-concept for the new General Education assessment process at Ferris State University. Assessment is perhaps best viewed as a scholarly activity that is focused upon programmatic improvement. Such scholarly work should be built upon, and contribute to, the relavent professional literature \citep{Weimer2015}. To emphasize that reality, this report is formatted in the form of a journal article and will be registered online with a digital objects identifier (doi).
 
+\begin{figure*}[htb]\centering % Using \begin{figure*} makes the figure take up the entire width of the page
+\includegraphics[width=\textwidth]{./art/process}
+\protect\caption{A diagram illustrating the flow of data from initial collection to storage, access, and use. This process constitutes "closing the loop" on assessing General Education competencies. The blue boxes highlight steps with direct faculty involvement; the red boxes indicate processes carried out by the General Education Coordinator. The light yellow region indicates the files that are publicly available on the Open Science Framework.}
+\label{fig:process.pdf}
+\end{figure*}
 
 %------------------------------------------------
 
@@ -265,7 +270,7 @@ The overall overall average rubric score for all 13 semesters was 2.54. The dist
 
 \begin{center}
 % latex table generated in R 3.3.0 by xtable 1.8-2 package
-% Wed Aug 17 09:52:44 2016
+% Wed Aug 17 22:17:38 2016
 \begin{table}[ht]
 \centering
 \caption{One-way ANOVA analysis of scores by semester} 
