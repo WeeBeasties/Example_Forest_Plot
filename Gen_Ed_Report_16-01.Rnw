@@ -314,13 +314,13 @@ The distribution of rubric scores by semester is shown in Figure \ref{fig:barplo
 
 % BARPLOT FIGURE INSERTED HERE
 \begin{figure}[h]\centering
-<<anova, echo=FALSE, message=FALSE, results='hide'>>=
-myModel <- lm(SCI1 ~ Semester, data = myData)
+<<barplot, echo=FALSE, message=FALSE, results='hide'>>=
 bySemester <- as.matrix(table(myData$SCI1,myData$Order))
 bySemester[ ,c(1,2,3,4,5,6,7,8,9,10,11,12,13)] <- bySemester[ ,c(13,12,11,10,9,8,7,6,5,4,3,2,1)]
 myLabels <- c("Fall 2015","Spring 2015","Fall 2014","Spring 2014","Fall 2013","Spring 2013","Fall 2012","Spring 2012","Fall 2011","Spring 2011","Fall 2010","Spring 2010","Fall 2009")
 #col <- c("firebrick","red","yellow","aquamarine","darkgreen")
 col <- c("#a50f15","#de2d26","#fb6a4a","#fcae91","#fee5d9")
+
 pdf("./figure/barplot.pdf", width=4.0, height=4)
 par(mar=c(4,8,3,2)+0.1)
 barplot(as.matrix(bySemester),
@@ -352,7 +352,9 @@ dev.off()
 
 % ANOVA TABLE INSERTED HERE
 \begin{center}
-<<echo=FALSE, results='asis'>>=
+<<anova, echo=FALSE, results='asis'>>=
+myModel <- lm(SCI1 ~ Semester, data = myData)
+
 library(xtable)
 tempTable <- (xtable(anova(myModel),
 caption="One-way ANOVA analysis of scores by semester",
@@ -453,11 +455,11 @@ The rubric scale can be conceptually divided into five areas as shown in Table \
 \begin{tabular}{c c}
 \textbf{Average score} & \textbf{Interpretation}   \\
 \hline
-0.00 to 0.99\%   &   Unsatisfactory                                \\
-1.00 to 1.79\%   &   Beginning                                     \\
-1.80 to 2.59\%   &   Developing                                    \\
-2.60 to 3.39\%   &   Proficient                                    \\
-3.40 to 4.00\%   &   Advanced                                      \\
+0.00 to 0.99   &   Unsatisfactory                                \\
+1.00 to 1.79   &   Beginning                                     \\
+1.80 to 2.59   &   Developing                                    \\
+2.60 to 3.39   &   Proficient                                    \\
+3.40 to 4.00   &   Advanced                                      \\
 \end{tabular}
 \label{tab:regions}
 \end{table}
