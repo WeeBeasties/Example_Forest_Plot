@@ -194,7 +194,7 @@ myData <- read.csv("BIOL200Data.csv", row.names = NULL, stringsAsFactors = FALSE
 %---------------------------
 \begin{quote}
 \begin{center}
-\textit{Assessment is not a spreadsheet; \\ it's a conversation. --- Irmeli Halinen}
+\textit{Assessment is not a spreadsheet; \\ it's a conversation. --- Irmeli Halinen \footnote{This quote is from an interview with Irmeli Halinen, a Finnish assessment expert. \citep{Bower}}}
 \end{center}
 \end{quote}
 
