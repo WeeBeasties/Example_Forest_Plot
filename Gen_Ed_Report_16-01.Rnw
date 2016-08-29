@@ -316,7 +316,11 @@ The distribution of rubric scores by semester is shown in Figure \ref{fig:barplo
 \begin{figure}[h]\centering
 <<barplot, echo=FALSE, message=FALSE, results='hide'>>=
 bySemester <- as.matrix(table(myData$SCI1,myData$Order))
-bySemester[ ,c(1,2,3,4,5,6,7,8,9,10,11,12,13)] <- bySemester[ ,c(13,12,11,10,9,8,7,6,5,4,3,2,1)]
+bySemester <- bySemester[,ncol(bySemester):1]
+semesterTotals <- apply(bySemester, 2, sum)
+for(dummy in 1:ncol(bySemester)){
+	bySemester[,dummy] <- bySemester[,dummy]/semesterTotals[dummy]*100
+}
 myLabels <- c("Fall 2015","Spring 2015","Fall 2014","Spring 2014","Fall 2013","Spring 2013","Fall 2012","Spring 2012","Fall 2011","Spring 2011","Fall 2010","Spring 2010","Fall 2009")
 #col <- c("firebrick","red","yellow","aquamarine","darkgreen")
 col <- c("#a50f15","#de2d26","#fb6a4a","#fcae91","#fee5d9")
@@ -329,12 +333,12 @@ barplot(as.matrix(bySemester),
 	xlab="",
 	ylab="",
 	names.arg=myLabels,
-	xlim=c(0,120),
+	xlim=c(0,100),
 	las=1,
 	cex.axis = 0.75,
 	cex.lab=0.75,
 	cex.names = 0.75)
-mtext("Frequency",side=1,line=2, cex = 0.75)
+mtext("Relative Frequency of Rubric Scores",side=1,line=2, cex = 0.75)
 mtext("Semester",side=2,line=5, cex = 0.75)
 add_legend("top",                             # Add a legend to the plot
        legend=c("0","1","2","3","4"),          # Text for the legend
